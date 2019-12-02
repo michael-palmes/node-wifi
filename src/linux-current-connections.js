@@ -25,9 +25,11 @@ function getCurrentConnection(config, callback) {
     }
 
     var lines = scanResults.split('\n');
-    if (config.iface) {
-      lines.shift();
-    }
+
+    // Removed due incomplete list on linux. See: https://github.com/friedrith/node-wifi/issues/64
+    // if (config.iface) {
+    //   lines.shift();
+    // }
 
     var networks = [];
     for (var i = 0; i < lines.length; i++) {
