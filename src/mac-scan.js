@@ -56,7 +56,7 @@ function parseAirport(terms, str) {
         )
       ),
       signal_level: lines[i].substr(colRssi, colChannel - colRssi).trim(),
-      quality: networkUtils.dBFromQuality(
+      quality: networkUtils.qualityFromDB(
         lines[i].substr(colRssi, colChannel - colRssi).trim()
       ),
       security: security,
