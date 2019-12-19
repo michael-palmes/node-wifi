@@ -1,10 +1,10 @@
 var execFile = require('child_process').execFile;
 var env = require('./env');
 
-function connectToWifi(config, ap, callback) {
+function connectToWifi(config, ap, callback, timeout) {
   var args = [];
   args.push('-w');
-  args.push('10');
+  args.push(timeout);
   args.push('device');
   args.push('wifi');
   args.push('connect');
@@ -27,18 +27,23 @@ function connectToWifi(config, ap, callback) {
 }
 
 module.exports = function(config) {
-  return function(ap, callback) {
+  return function(ap, callback, timeout) {
     if (callback) {
-      connectToWifi(config, ap, callback);
+      connectToWifi(config, ap, callback, timeout);
     } else {
       return new Promise(function(resolve, reject) {
-        connectToWifi(config, ap, function(err) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
+        connectToWifi(
+          config,
+          ap,
+          function(err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+          timeout
+        );
       });
     }
   };
