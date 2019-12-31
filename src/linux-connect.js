@@ -4,7 +4,7 @@ var env = require('./env');
 function connectToWifi(config, ap, callback, timeout) {
   var args = [];
   args.push('-w');
-  args.push(timeout);
+  args.push(timeout || '10');
   args.push('device');
   args.push('wifi');
   args.push('connect');
